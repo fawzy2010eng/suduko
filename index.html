@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="icon" href="images/487-4876160_entertainment-fun-tictactoe-tic-tac-toe-svg-png.png">
+        <!-- bootstrap css -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.tiles.min.css">     
+
+		<!--        owl carousel-->
+        <link href="css/owl.carousel.min.css" rel="stylesheet">
+        <!-- main css -->
+        <link rel="stylesheet" href="css/style.css">        
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="css/all.css">
+
+        <title>SUDUKO</title>
+        
+    </head>
+    
+    <body>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Easy</a>
+            <a href="#">Meduim</a>
+            <a href="#">Hard</a>
+            <a href="#">New Game</a>
+            <a href="#">Reset</a>            
+        </div>
+
+        <div class="main" id="main">
+            <span style="font-size:30px;cursor:pointer;float: left" onclick="openNav()">&#9776;MENU</span>
+            
+            <div class="ml-5 mt-5">
+                <div class="collection mb-3">
+                    <button class="pause btn btn-danger">Pause</button>
+                    <div class="timer">00 : 00</div>
+                    <button class="start btn btn-success" disabled>Start</button>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="main-grid">
+                    
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+
+
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+
+
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb br grey">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb br">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+
+
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+
+
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb br">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb grey">
+                                <input type="text" data-i="0" data-j="0" class="bb br grey">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+                                <input type="text" data-i="0" data-j="0" class="bb">
+
+
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+
+
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+
+
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="br grey">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0">
+                                <input type="text" data-i="0" data-j="0" class="br">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+                                <input type="text" data-i="0" data-j="0" class="grey">
+
+
+                    
+
+                            </div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>SUDUKO</h1>                             <img src="images/487-4876160_entertainment-fun-tictactoe-tic-tac-toe-svg-png.png">                          
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="digits">
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                    <div>9</div>                    
+                </div>
+            </div>
+        </div>
+		
+        <!-- jquery -->
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+		<!--        owl carousel-->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- script js -->
+        <script src="js/app.js"></script>
+    </body>
+</html>
