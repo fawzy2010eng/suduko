@@ -1,2 +1,2 @@
 # suduko
-https://github.com/fawzy2010eng/suduko
+https://fawzy2010eng.github.io/suduko/
