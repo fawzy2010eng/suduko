@@ -78,8 +78,8 @@ start.addEventListener('click',function(){
     
 })
 
-//creating grid 
-function creategird(){
+//creating grid function creategird(){
+	var count = 0;
     //giving the inputs Is and Js
     var inputs = document.querySelectorAll('input');
 
@@ -91,47 +91,36 @@ function creategird(){
 
     }
 
-    //creating idol array
     var idol = [1,2,3,4,5,6,7,8,9];
 
     //creating full array
     let fullArray = Array(9).fill().map(() => Array(9).fill(0));
     
-
+	for(var k = 0; k < inputs.length; k++){
+		console.log(k);
+		var cellJ = k - (k - (Math.floor(k%9)));
+        var cellI = (k - (k%9))/9;
+		// loop through the ith array
         for(var i = 0; i < 9; i++){
-            for(var j = 0; j < 9; j++){
-                fullArray[i][j] = `${i} ${j}`  
+            if(idol.indexOf(fullArray[cellI][i]) != -1){
+                idol[idol.indexOf(fullArray[cellI][i])] = ''  
             }  
         }
-    // console.log(fullArray[0]);
-    // looping through every input to gives it number    
-    for(var i = 0; i < 81; i++){
-        
-        //looping throug i array
-        for(var j = 0; j < fullArray[Math.floor(i/9)].length; j++){
-            var index = idol.indexOf(fullArray[Math.floor(i/9)][j]);
-            if(index != -1){
-                idol[index] = ''  
-            }
+		console.log(idol);
+		//	looping through jth array
+		for(var j = 0; j < 9; j++){
+            if(idol.indexOf(fullArray[j][cellJ]) != -1){
+                idol[idol.indexOf(fullArray[j][cellJ])] = ''  
+            }  
         }
-        
-        //looping through j array
-        for(var k = 0; k < 9; k++){
-            var index = idol.indexOf(fullArray[k][i%9]);
-            if(index != -1){
-                idol[index] = ''
-            }
-        }
-        
-        //looping through square
-        var cellI = index - (index - Math.floor(index%9)) -1;
-        var cellJ = (index - (index%9))/9;
-        var cell = fullArray [cellI][cellJ];
-        var square  = new Array;
-        
-        if(cellI > 0 && cellI < 3){
-            if(cellJ > 0 && cellJ < 3){
-                
+				console.log(idol);
+
+		//creating suare array
+		var square = [];
+		
+		//choosing the square for the cell
+		if(cellI >= 0 && cellI < 3){
+            if(cellJ >= 0 && cellJ < 3){
                 square.push(fullArray[0][0]);
                 square.push(fullArray[1][0]);
                 square.push(fullArray[2][0]);
@@ -142,8 +131,7 @@ function creategird(){
                 square.push(fullArray[1][2]);
                 square.push(fullArray[2][2]);
                 
-            }else if(cellJ > 3 && cellJ < 6){
-                
+            }else if(cellJ >= 3 && cellJ < 6){
                 
                 square.push(fullArray[0][3]);
                 square.push(fullArray[1][3]);
@@ -171,8 +159,8 @@ function creategird(){
             }
             
         }
-        else if(cellI > 2 && cellI < 6){
-            if(cellJ > 0 && cellJ < 3){
+        else if(cellI >= 3 && cellI < 6){
+            if(cellJ >= 0 && cellJ < 3){
                 
                 square.push(fullArray[3][0]);
                 square.push(fullArray[4][0]);
@@ -184,7 +172,7 @@ function creategird(){
                 square.push(fullArray[4][2]);
                 square.push(fullArray[5][2]);
                 
-            }else if(cellJ > 3 && cellJ < 6){
+            }else if(cellJ >= 3 && cellJ < 6){
                 
                 
                 square.push(fullArray[3][3]);
@@ -214,7 +202,7 @@ function creategird(){
             
         }
         else{
-            if(cellJ > 0 && cellJ < 3){
+            if(cellJ >= 0 && cellJ < 3){
                 
                 square.push(fullArray[6][0]);
                 square.push(fullArray[7][0]);
@@ -226,7 +214,7 @@ function creategird(){
                 square.push(fullArray[7][2]);
                 square.push(fullArray[8][2]);
                 
-            }else if(cellJ > 3 && cellJ < 6){
+            }else if(cellJ >= 3 && cellJ < 6){
                 
                 
                 square.push(fullArray[6][3]);
@@ -254,27 +242,33 @@ function creategird(){
             }
             
         }
-        
-        for(var i = 0; i < square.length; i++){
-            var index = idol.indexOf(square[i]);
-            if(index != -1){
-                idol[index] = ''
-            }
-        }
-        
-        var idolx = [];
-        for(var i = 0; i < idol.length; i++){
-            if(idol[i] != ''){
-                idolx.push(idol[i])
-            }
-        }
-        
-        fullArray[i - (i - Math.floor(i%9)) -1][(i - (i%9)) / 9] = idolx[Math.floor((Math.random() * idolx.length))]
-        
-        idol = [1,2,3,4,5,6,7,8];
-    }
-    console.log(fullArray)
+		//looping through square
+		for(var i = 0; i < 9; i++){
+			if(idol.indexOf(square[i]) != -1){
+				idol[idol.indexOf(square[i])] = ''
+			}
+		};
+		console.log(idol);
+
+		//clearing the idol from the ''s
+		var idolx = [];
+		for(var i = 0; i < 9; i++){
+			if(idol[i] != ''){
+				idolx.push(idol[i]);
+			}
+		}
+		console.log(idolx);
+		//get random item from the idol array
+		var rand = Math.floor((Math.random() * idolx.length));	
+		console.log(rand,idolx[rand]);
+		
+		fullArray[cellI][cellJ] = idolx[rand];
+		idol = [1,2,3,4,5,6,7,8,9]
+	}
+	console.log(fullArray);
+	
 }
 creategird();
+
 
 
