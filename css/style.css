@@ -56,7 +56,8 @@
 }
 .main .collection{
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+	align-items: center
 }
 
 .main .digits{
