@@ -54,16 +54,14 @@ function updateTimer(){
 //setting the pause button
 
 pause.addEventListener('click',function(){
-//    //    flip the grid
-//    innercard.style.transform = 'rotateY(180deg)';
-//    //    pause the timer
-//    clearInterval(myvar);
-//    //    disaple this button
-//    this.disabled = true;
-//    //    able the start button
-//    start.disabled = false;
-	var conflicts = sudoku.getConflicts({ A1: 5, A2:5});
-	console.log(conflicts)
+    //    flip the grid
+    innercard.style.transform = 'rotateY(180deg)';
+    //    pause the timer
+    clearInterval(myvar);
+    //    disaple this button
+    this.disabled = true;
+    //    able the start button
+    start.disabled = false;
 })
 
 //setting the start button
