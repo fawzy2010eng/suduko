@@ -48,6 +48,7 @@ function updateTimer(){
     if(sec < 10){sec = `0${sec}`};
     timer.innerHTML = `${minute} : ${sec}`
 }
+    
 //var myvar = setInterval(updateTimer , 1000);
 
 
@@ -115,7 +116,7 @@ function fillingGrid(array){
 	for(var i = 0; i < puzzle.length; i++){
 		inputs[inputArr.indexOf(array[i][0])].value = puzzle[i][1];
 		inputs[inputArr.indexOf(array[i][0])].disabled = true;
-		inputs[inputArr.indexOf(array[i][0])].style.backgroundColor = '#cbcbcb'
+        inputs[inputArr.indexOf(array[i][0])].style.color = 'red'
 	}	
 }
 
@@ -123,12 +124,54 @@ function fillingGrid(array){
 fillingGrid(puzzle)
 
 
-//solving the puzzle
 
-//var solvedPuzzle = sudoku.solve(puzzle);
-//console.log(solvedPuzzle)
+//giving the input some features
+// limiting the input with one digit
+function validateInput(){
+    var inputs = document.querySelectorAll('input');
+	for(var i = 0; i < inputs.length; i++){
+		inputs[i].addEventListener('keyup',function(){
+            if(this.value.length >= 1){
+                this.value = this.value[0]   
+            }
+        })
+	}
+}
 
+validateInput();
 
+//highlight the related cells when cell is focused
+function highlighCell(){
+    var inputs = document.querySelectorAll('input');
+	for(var i = 0; i < inputs.length; i++){
+        inputs[i].addEventListener('focus',function(){
+            var row = this.getAttribute('data-index')[0];
+            var col = this.getAttribute('data-index')[1];
+            for(var j = 0; j < inputs.length; j++){
+                if(inputs[j].getAttribute('data-index')[0] == row){
+                    inputs[j].style.backgroundColor = '#cfe3f3'
+                }
+                if(inputs[j].getAttribute('data-index')[1] == col){
+                    inputs[j].style.backgroundColor = '#cfe3f3'
+                }
+                
+            }
+        })
+        inputs[i].addEventListener('blur',function(){
+            var row = this.getAttribute('data-index')[0];
+            var col = this.getAttribute('data-index')[1];
+            for(var j = 0; j < inputs.length; j++){
+                if(inputs[j].getAttribute('data-index')[0] == row){
+                    inputs[j].style.backgroundColor = ''
+                }
+                if(inputs[j].getAttribute('data-index')[1] == col){
+                    inputs[j].style.backgroundColor = ''
+                }
+                
+            }
+        })
+        
+	}
+}
 
-
-
+highlighCell();

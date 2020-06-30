@@ -81,12 +81,6 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-/*
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-*/
-
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
@@ -114,10 +108,18 @@
     width: 40px;
     height: 40px;
     text-align: center;
-    border: 1px solid grey;
+    border: 1px solid grey;    
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
 }
 .main .main-grid input:focus{
     border: 5px solid blue 
+}
+.main .main-grid input:disabled:not(.grey){ 
+    background-color: white
 }
 .main .main-grid .bb{
     border-bottom: 2px solid black
