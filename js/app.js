@@ -279,7 +279,7 @@ function highlightError(){
 //					selectdSquare[i].style.backgroundColor = '#cfe3f3'
 //				}		
 //			}
-			console.log(sudoku.getConflicts({ A1: 9, A8:1}))
+			console.log(sudoku.getConflicts({ A1: 1, A2:1}))
         })        
 	}
 } 
