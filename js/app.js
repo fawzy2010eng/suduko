@@ -49,20 +49,20 @@ function updateTimer(){
     timer.innerHTML = `${minute} : ${sec}`
 }
     
-//var myvar = setInterval(updateTimer , 1000);
+var myvar = setInterval(updateTimer , 1000);
 
 
 //setting the pause button
 
 pause.addEventListener('click',function(){
 //    //    flip the grid
-//    innercard.style.transform = 'rotateY(180deg)';
+    innercard.style.transform = 'rotateY(180deg)';
 //    //    pause the timer
-//    clearInterval(myvar);
+    clearInterval(myvar);
 //    //    disaple this button
-//    this.disabled = true;
+    this.disabled = true;
 //    //    able the start button
-//    start.disabled = false;
+   start.disabled = false;
 	var solvedPuzzle = sudoku.solve(puzzle);
 			console.log(solvedPuzzle);
 })
@@ -252,7 +252,7 @@ function getSquare(row,col){
 highlighIndicate();
 
 //highlit error cell in square or row or column
-function highlightErrow(){
+function highlightError(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
 	for(var i = 0; i < inputs.length; i++){
@@ -279,14 +279,12 @@ function highlightErrow(){
 //					selectdSquare[i].style.backgroundColor = '#cfe3f3'
 //				}		
 //			}
-//			console.log(sudoku.getConflicts({ A1: 9, A8:1}))
-			var solvedPuzzle = sudoku.solve(puzzle);
-			console.log(solvedPuzzle);
+			console.log(sudoku.getConflicts({ A1: 9, A8:1}))
         })        
 	}
 } 
 
-highlightErrow()
+highlightError()
 
 
 
