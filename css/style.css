@@ -121,6 +121,13 @@ input::-webkit-inner-spin-button {
 .main .main-grid input:disabled:not(.grey){ 
     background-color: white
 }
+.main .main-grid .error{
+	border: red 3px solid;
+	text-decoration: underline;
+	text-decoration-color: red;
+	text-decoration-style: wavy;
+/*	text-decoration-th: */
+}
 .main .main-grid .bb{
     border-bottom: 2px solid black
 }
@@ -130,6 +137,15 @@ input::-webkit-inner-spin-button {
 .main .main-grid .grey{
     background-color: #d2cbcb
 }
+
+
+
+
+
+
+
+
+
 
 
 
