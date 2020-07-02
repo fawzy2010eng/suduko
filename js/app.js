@@ -49,22 +49,20 @@ function updateTimer(){
     timer.innerHTML = `${minute} : ${sec}`
 }
     
-//var myvar = setInterval(updateTimer , 1000);
+var myvar = setInterval(updateTimer , 1000);
 
 
 //setting the pause button
 
 pause.addEventListener('click',function(){
 //    //    flip the grid
-//    innercard.style.transform = 'rotateY(180deg)';
+    innercard.style.transform = 'rotateY(180deg)';
 //    //    pause the timer
-//    clearInterval(myvar);
+    clearInterval(myvar);
 //    //    disaple this button
-//    this.disabled = true;
+    this.disabled = true;
 //    //    able the start button
-//    start.disabled = false;
-	var solvedPuzzle = sudoku.solve(puzzle);
-			console.log(solvedPuzzle);
+	start.disabled = false;
 })
 
 //setting the start button
