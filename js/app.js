@@ -49,20 +49,20 @@ function updateTimer(){
     timer.innerHTML = `${minute} : ${sec}`
 }
     
-var myvar = setInterval(updateTimer , 1000);
+//var myvar = setInterval(updateTimer , 1000);
 
 
 //setting the pause button
 
 pause.addEventListener('click',function(){
 //    //    flip the grid
-    innercard.style.transform = 'rotateY(180deg)';
+//    innercard.style.transform = 'rotateY(180deg)';
 //    //    pause the timer
-    clearInterval(myvar);
+//    clearInterval(myvar);
 //    //    disaple this button
-    this.disabled = true;
+//    this.disabled = true;
 //    //    able the start button
-   start.disabled = false;
+//    start.disabled = false;
 	var solvedPuzzle = sudoku.solve(puzzle);
 			console.log(solvedPuzzle);
 })
@@ -252,39 +252,59 @@ function getSquare(row,col){
 highlighIndicate();
 
 //highlit error cell in square or row or column
-function highlightError(){
+function highlightErrow(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
+	var obj = {};
 	for(var i = 0; i < inputs.length; i++){
         inputs[i].addEventListener('keyup',function(){
-//			var estimate = parseInt(this.value); 
-//            var row = this.getAttribute('data-index')[0];
-//			var col = this.getAttribute('data-index')[1];
-//            for(var j = 0; j < inputs.length; j++){
-//				//highlighing the row
-//                if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value == estimate){
-////                    this.style.textDecoration = 'underline';
-//					this.style.borderColor = 'red';
-//					this.style.borderWidth = '5px'
-//                }
-//				//hilighting the col
-//                if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value == estimate){
-//                    this.style.borderColor = 'red';
-//					this.style.borderWidth = '5px'
-//                }
-//				
-//				//highligting the square
-//				var selectdSquare = getSquare(row,col);
-//				for(var i = 0; i < selectdSquare.length; i++){
-//					selectdSquare[i].style.backgroundColor = '#cfe3f3'
-//				}		
-//			}
-			console.log(sudoku.getConflicts({ A1: 1, A2:1}))
-        })        
-	}
-} 
 
-highlightError()
+			var row = this.getAttribute('data-index')[0];
+            var col = this.getAttribute('data-index')[1];
+            for(var j = 0; j < inputs.length; j++){
+				//highlighing the row
+                if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
+					
+					obj[`${inputs[j].getAttribute('data-index')}`] = `${inputs[j].value}`
+
+					
+					
+                }
+				//hilighting the col
+                if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value != ''){
+									
+
+					obj[`${inputs[j].getAttribute('data-index')}`] = `${inputs[j].value}`
+					
+					
+                }
+				//highligting the square
+				var selectdSquare = getSquare(row,col);
+				for(var i = 0; i < selectdSquare.length; i++){
+					if(selectdSquare[i].value != ''){
+						
+						
+						
+						obj[`${selectdSquare[1].getAttribute('data-index')}`] = `${selectdSquare[i].value}`
+
+						
+					
+						
+						
+					}
+				}	
+			}
+				
+			
+        })        
+	
+   }
+	
+	console.log(obj);
+//	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
+	console.log(sudoku.getConflicts(obj));
+}
+highlightErrow()
 
 
 
