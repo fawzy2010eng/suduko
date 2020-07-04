@@ -90,10 +90,6 @@ start.addEventListener('click',function(){
 })
 
 
-
-
-
-
 //creating the grid function
 function createGrid(level){
 	var puzzle = Object.entries(sudoku.generate(level)) ;
@@ -103,7 +99,8 @@ function createGrid(level){
 function emptyGrid(){
 	var inputs = document.querySelectorAll('input');
 	for(var i = 0; i < inputs.length; i++){
-		inputs[i].value = ''
+		inputs[i].value = '';
+		inputs[i].disabled = false
 	}
 }
 //gettting the level of the game
@@ -123,7 +120,7 @@ function getLevel(){
 				//flip the grid
 				innercard.style.transform = 'rotateY(0)';
 				//disable this card
-				this.disabled = true;
+				start.disabled = true;
 				//enable pause button
 				pause.disabled = false;
 			}
@@ -142,12 +139,13 @@ function rst(){
 			}
 		}	
 		reset();
+		
 		if(pause.disabled){
 			starting();
 			//flip the grid
 			innercard.style.transform = 'rotateY(0)';
 			//disable this card
-			this.disabled = true;
+			start.disabled = true;
 			//enable pause button
 			pause.disabled = false;
 		}
@@ -318,25 +316,21 @@ function highlightError(){
             for(var j = 0; j < inputs.length; j++){
 				//highlighing the row
                 if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
-					key = inputs[j].getAttribute('data-index');
-					obj[key] = inputs[j].value;
-//					obj['A1'] = 3;
+					key = inputs[j].value
+					obj[inputs[j].getAttribute('data-index')] = key;
 				}
 				//hilighting the col
                 if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value != ''){
-					key = inputs[j].getAttribute('data-index');
-					obj[key] = inputs[j].value;
-//										obj['A2'] = 3;
+					key = inputs[j].value
+					obj[inputs[j].getAttribute('data-index')] = key;
 
 				}
 				//highligting the square
 				var selectdSquare = getSquare(row,col);
 				for(var i = 0; i < selectdSquare.length; i++){
 					if(selectdSquare[i].value != ''){
-						key =selectdSquare[i].getAttribute('data-index')
-						obj[key] = selectdSquare[i].value;
-//											obj['A3'] = 3;
-
+						key = selectdSquare[i].value;
+						obj[selectdSquare[i].getAttribute('data-index')] = key
 					}
 				}	
 			}
@@ -346,7 +340,8 @@ function highlightError(){
 	
    }
 	console.log(obj);
-////	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
+//	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
+
 	var error = sudoku.getConflicts(obj);
 //	for(var i = 0; i < error.length; i++){
 //		for(var j = 0; j < inputs.length; j++){
@@ -357,7 +352,6 @@ function highlightError(){
 //		}
 //	}
 	console.log(error);
-	
 }
 highlightError()
 
@@ -365,7 +359,6 @@ highlightError()
 var newGame = document.querySelector('#new');
 newGame.addEventListener('click',function(){
 	document.location.reload(true);
-	
 })
 
 
