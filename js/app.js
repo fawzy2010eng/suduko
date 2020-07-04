@@ -14,7 +14,7 @@ function closeNav() {
 var flipcard = document.querySelector('.flip-card');
 var innercard = document.querySelector('.flip-card-inner');
 var timer = document.querySelector('.ml-5 .timer');
-var pause = document.querySelector('.ml-5 .pause');
+var pause = document.querySelector('.ml-5 .stop');
 var start = document.querySelector('.ml-5 .start');
 
 //giving index for the input
@@ -31,68 +31,68 @@ function indexingInputs(){
 }
 indexingInputs();
 
-//setting the timer in the front card
-var d = new Date();
-var n = d.getTime();
-function updateTimer(){
-    var currenttime = new Date().getTime() - n ;
-    var minute = 0;
-    var sec = 0;
-    if(currenttime > 60000){
-        sec = Math.floor((currenttime % 60000)/1000);
-        minute = Math.floor((currenttime - sec) / 60000) 
-    }else{
-        sec = Math.floor(currenttime/1000);
-    }
-    if(minute < 10){minute = `0${minute}`};
+var min = 0;
+var sec = 0;
+var miliSec = 0
+var timer;
+
+function callTimer() {
+	sec++;
+	if (sec === 60)  {
+		sec = 0;
+		min++;
+	}
     if(sec < 10){sec = `0${sec}`};
-    timer.innerHTML = `${minute} : ${sec}`
+	document.querySelector('.ml-5 .timer').innerHTML = '0' + min + " : " + sec;
 }
-    
-var myvar = setInterval(updateTimer , 1000);
+
+function starting() {
+    timer = setInterval(callTimer, 1000);
+}
+starting();
+function stoping() {
+    clearInterval(timer);
+}
+
+function reset() {
+    stop();
+    min = 0;
+    sec = 0;
+    miliSec = 0;
+    if(sec < 10){sec = `0${sec}`};
+	document.querySelector('.ml-5 .timer').innerHTML = '0' + min + " : " + sec;
+}
 
 
-//setting the pause button
-
+//adding features to pause button
 pause.addEventListener('click',function(){
-    //    flip the grid
+	//    flip the grid
     innercard.style.transform = 'rotateY(180deg)';
     //    pause the timer
-    clearInterval(myvar);
+	stoping();
     //    disaple this button
     this.disabled = true;
     //    able the start button
     start.disabled = false;
 })
 
-//setting the start button
-function startTimer(){
-	//    get the time from the timer
-    var spenttime = timer.innerHTML;
-    var minute = parseInt(spenttime[0] + spenttime[1]);
-    var sec = parseInt(spenttime[5] + spenttime[6]);
-    var currenttime = (minute + sec) * 1000; 
-    currenttime += 1000;
-		if(currenttime > 60000){
-			sec = Math.floor((currenttime % 60000)/1000);
-			minute = Math.floor((currenttime - sec) / 60000) 
-		}else{
-			sec = Math.floor(currenttime/1000);
-		}
-		if(minute < 10){minute = `0${minute}`};
-		if(sec < 10){sec = `0${sec}`};
-		timer.innerHTML = `${minute} : ${sec}`
-}
+
+//ading features to start button
 start.addEventListener('click',function(){
-    
-    setInterval(startTimer,1000)
+	starting();
 	//flip the grid
     innercard.style.transform = 'rotateY(0)';
     //disable this card
 	this.disabled = true;
 	//enable pause button
-//    pause.disabled = false;
+	pause.disabled = false;
+
 })
+
+
+
+
+
 
 //creating the grid function
 function createGrid(level){
@@ -100,7 +100,12 @@ function createGrid(level){
 	return puzzle
 }
 
-
+function emptyGrid(){
+	var inputs = document.querySelectorAll('input');
+	for(var i = 0; i < inputs.length; i++){
+		inputs[i].value = ''
+	}
+}
 //gettting the level of the game
 var level = 'easy';
 
@@ -109,8 +114,19 @@ function getLevel(){
 	for(var i = 0; i < 3; i++){
 		levels[i].addEventListener('click',function(){
 			level = this.getAttribute('data-level');
-			document.location.reload(true);
-			openNav()
+			emptyGrid();
+			fillingGrid(createGrid(level));
+			reset();
+			closeNav();
+			if(pause.disabled){
+				starting();
+				//flip the grid
+				innercard.style.transform = 'rotateY(0)';
+				//disable this card
+				this.disabled = true;
+				//enable pause button
+				pause.disabled = false;
+			}
 		})
 	}
 }
@@ -119,7 +135,9 @@ getLevel();
 function newGame(){
 	var btn = document.querySelector('#new');
 	btn.addEventListener('click',function(){
-		document.location.reload(true)
+		document.location.reload(true);
+		reset();
+		
 	})
 }
 newGame();
@@ -134,6 +152,16 @@ function rst(){
 			}
 		}	
 		closeNav();
+		reset();
+		if(pause.disabled){
+			starting();
+			//flip the grid
+			innercard.style.transform = 'rotateY(0)';
+			//disable this card
+			this.disabled = true;
+			//enable pause button
+			pause.disabled = false;
+		}
 		
 	})
 }
