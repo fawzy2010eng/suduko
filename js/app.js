@@ -55,14 +55,14 @@ var myvar = setInterval(updateTimer , 1000);
 //setting the pause button
 
 pause.addEventListener('click',function(){
-//    //    flip the grid
+    //    flip the grid
     innercard.style.transform = 'rotateY(180deg)';
-//    //    pause the timer
+    //    pause the timer
     clearInterval(myvar);
-//    //    disaple this button
+    //    disaple this button
     this.disabled = true;
-//    //    able the start button
-	start.disabled = false;
+    //    able the start button
+    start.disabled = false;
 })
 
 //setting the start button
@@ -100,8 +100,47 @@ function createGrid(level){
 	return puzzle
 }
 
+
+//gettting the level of the game
+var level = 'easy';
+
+function getLevel(){
+	var levels = document.querySelectorAll('.sidenav button');
+	for(var i = 0; i < 3; i++){
+		levels[i].addEventListener('click',function(){
+			level = this.getAttribute('data-level');
+			document.location.reload(true);
+			openNav()
+		})
+	}
+}
+getLevel();
+
+function newGame(){
+	var btn = document.querySelector('#new');
+	btn.addEventListener('click',function(){
+		document.location.reload(true)
+	})
+}
+newGame();
+
+function rst(){
+	var btn = document.querySelector('#rest');
+	var inputs =document.querySelectorAll('input'); 
+	btn.addEventListener('click',function(){
+		for(var i = 0; i < inputs.length; i++){
+			if(inputs[i].disabled == false){
+				inputs[i].value = '';
+			}
+		}	
+		closeNav();
+		
+	})
+}
+rst();	
+
 //creating grid array
-var puzzle = createGrid("easy");
+var puzzle = createGrid(level);
 
 //filling the grid with the digits function
 function fillingGrid(array){
@@ -250,45 +289,28 @@ function getSquare(row,col){
 highlighIndicate();
 
 //highlit error cell in square or row or column
-function highlightErrow(){
+function highlightError(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
 	var obj = {};
 	for(var i = 0; i < inputs.length; i++){
         inputs[i].addEventListener('keyup',function(){
-
 			var row = this.getAttribute('data-index')[0];
             var col = this.getAttribute('data-index')[1];
             for(var j = 0; j < inputs.length; j++){
 				//highlighing the row
                 if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
-					
-					obj[`${inputs[j].getAttribute('data-index')}`] = `${inputs[j].value}`
-
-					
-					
-                }
+					obj[`${inputs[j].getAttribute('data-index')}`] = inputs[j].value;
+				}
 				//hilighting the col
                 if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value != ''){
-									
-
-					obj[`${inputs[j].getAttribute('data-index')}`] = `${inputs[j].value}`
-					
-					
-                }
+					obj[`${inputs[j].getAttribute('data-index')}`] = inputs[j].value;
+				}
 				//highligting the square
 				var selectdSquare = getSquare(row,col);
 				for(var i = 0; i < selectdSquare.length; i++){
 					if(selectdSquare[i].value != ''){
-						
-						
-						
-						obj[`${selectdSquare[1].getAttribute('data-index')}`] = `${selectdSquare[i].value}`
-
-						
-					
-						
-						
+						obj[`${selectdSquare[i].getAttribute('data-index')}`] = selectdSquare[i].value;
 					}
 				}	
 			}
@@ -298,14 +320,26 @@ function highlightErrow(){
 	
    }
 	
-	console.log(obj);
-//	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
-	console.log(sudoku.getConflicts(obj));
+////	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
+//	var error = sudoku.getConflicts(obj);
+//	for(var i = 0; i < error.length; i++){
+//		for(var j = 0; j < inputs.length; j++){
+//			if(error[i].errorFields.indexOf( inputs[j].getAttribute('data-index')) !=  -1){
+//				inputs[j].style.backgroundColor = 'red';
+//				console.log('fs')
+//			}
+//		}
+//	}
+	
 }
-highlightErrow()
+highlightError()
 
-
-
+//setting the new game button
+var newGame = document.querySelector('#new');
+newGame.addEventListener('click',function(){
+	document.location.reload(true);
+	
+})
 
 
 
