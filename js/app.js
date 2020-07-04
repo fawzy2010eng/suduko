@@ -111,7 +111,7 @@ var level = 'easy';
 
 function getLevel(){
 	var levels = document.querySelectorAll('.sidenav button');
-	for(var i = 0; i < 3; i++){
+	for(var i = 0; i < 4; i++){
 		levels[i].addEventListener('click',function(){
 			level = this.getAttribute('data-level');
 			emptyGrid();
@@ -132,16 +132,6 @@ function getLevel(){
 }
 getLevel();
 
-function newGame(){
-	var btn = document.querySelector('#new');
-	btn.addEventListener('click',function(){
-		document.location.reload(true);
-		reset();
-		
-	})
-}
-newGame();
-
 function rst(){
 	var btn = document.querySelector('#rest');
 	var inputs =document.querySelectorAll('input'); 
@@ -151,7 +141,6 @@ function rst(){
 				inputs[i].value = '';
 			}
 		}	
-		closeNav();
 		reset();
 		if(pause.disabled){
 			starting();
@@ -162,7 +151,7 @@ function rst(){
 			//enable pause button
 			pause.disabled = false;
 		}
-		
+		closeNav();	
 	})
 }
 rst();	
@@ -320,25 +309,34 @@ highlighIndicate();
 function highlightError(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
-	var obj = {};
+	var obj = new Object;
+	var key = '';
 	for(var i = 0; i < inputs.length; i++){
-        inputs[i].addEventListener('keyup',function(){
+        inputs[i].addEventListener('keydown',function(){
 			var row = this.getAttribute('data-index')[0];
             var col = this.getAttribute('data-index')[1];
             for(var j = 0; j < inputs.length; j++){
 				//highlighing the row
                 if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
-					obj[`${inputs[j].getAttribute('data-index')}`] = inputs[j].value;
+					key = inputs[j].getAttribute('data-index');
+					obj[key] = inputs[j].value;
+//					obj['A1'] = 3;
 				}
 				//hilighting the col
                 if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value != ''){
-					obj[`${inputs[j].getAttribute('data-index')}`] = inputs[j].value;
+					key = inputs[j].getAttribute('data-index');
+					obj[key] = inputs[j].value;
+//										obj['A2'] = 3;
+
 				}
 				//highligting the square
 				var selectdSquare = getSquare(row,col);
 				for(var i = 0; i < selectdSquare.length; i++){
 					if(selectdSquare[i].value != ''){
-						obj[`${selectdSquare[i].getAttribute('data-index')}`] = selectdSquare[i].value;
+						key =selectdSquare[i].getAttribute('data-index')
+						obj[key] = selectdSquare[i].value;
+//											obj['A3'] = 3;
+
 					}
 				}	
 			}
@@ -347,9 +345,9 @@ function highlightError(){
         })        
 	
    }
-	
+	console.log(obj);
 ////	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
-//	var error = sudoku.getConflicts(obj);
+	var error = sudoku.getConflicts(obj);
 //	for(var i = 0; i < error.length; i++){
 //		for(var j = 0; j < inputs.length; j++){
 //			if(error[i].errorFields.indexOf( inputs[j].getAttribute('data-index')) !=  -1){
@@ -358,6 +356,7 @@ function highlightError(){
 //			}
 //		}
 //	}
+	console.log(error);
 	
 }
 highlightError()
