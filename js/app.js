@@ -43,7 +43,12 @@ function callTimer() {
 		min++;
 	}
     if(sec < 10){sec = `0${sec}`};
-	document.querySelector('.ml-5 .timer').innerHTML = '0' + min + " : " + sec;
+	if(min > 10){
+		document.querySelector('.ml-5 .timer').innerHTML = min + " : " + sec;
+	}else{
+		document.querySelector('.ml-5 .timer').innerHTML = '0' + min + " : " + sec;
+
+	}
 }
 
 function starting() {
@@ -108,7 +113,7 @@ var level = 'easy';
 
 function getLevel(){
 	var levels = document.querySelectorAll('.sidenav button');
-	for(var i = 0; i < 4; i++){
+	for(var i = 0; i < 3; i++){
 		levels[i].addEventListener('click',function(){
 			level = this.getAttribute('data-level');
 			emptyGrid();
@@ -238,7 +243,7 @@ function highlighIndicate(){
 	}
 }
 
-//getting the the square
+//getting the square of cell
 function getSquare(row,col){
 	var inputs = document.querySelectorAll('input');
 	//the whole squares
@@ -303,66 +308,108 @@ function getSquare(row,col){
 
 highlighIndicate();
 
-//highlit error cell in square or row or column
+//highlit error cell in square or row or {column
 function highlightError(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
-	var obj = new Object;
-	var key = '';
 	for(var i = 0; i < inputs.length; i++){
-        inputs[i].addEventListener('keydown',function(){
+		inputs[i].addEventListener('keyup',function(){
 			var row = this.getAttribute('data-index')[0];
             var col = this.getAttribute('data-index')[1];
-            for(var j = 0; j < inputs.length; j++){
-				//highlighing the row
-                if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
-					key = inputs[j].value
-					obj[inputs[j].getAttribute('data-index')] = key;
-				}
-				//hilighting the col
-                if(inputs[j].getAttribute('data-index')[1] == col && inputs[j].value != ''){
-					key = inputs[j].value
-					obj[inputs[j].getAttribute('data-index')] = key;
-
-				}
-				//highligting the square
-				var selectdSquare = getSquare(row,col);
-				for(var i = 0; i < selectdSquare.length; i++){
-					if(selectdSquare[i].value != ''){
-						key = selectdSquare[i].value;
-						obj[selectdSquare[i].getAttribute('data-index')] = key
-					}
-				}	
-			}
-				
+			var rowValues = [];
+			var colValues =[];
+			var squareValue = [];
 			
-        })        
-	
-   }
-	console.log(obj);
-//	obj = {A2: "1",A6: "3",B3: "3",C2: "1",D2: "7",E2: "4",E3: "8",F3: "6",G3: "5",H3: "4",I3: "7"}
-
-	var error = sudoku.getConflicts(obj);
-//	for(var i = 0; i < error.length; i++){
-//		for(var j = 0; j < inputs.length; j++){
-//			if(error[i].errorFields.indexOf( inputs[j].getAttribute('data-index')) !=  -1){
-//				inputs[j].style.backgroundColor = 'red';
-//				console.log('fs')
-//			}
-//		}
-//	}
-	console.log(error);
+			for(var j = 0; j < inputs.length; j++){
+				if(inputs[j].getAttribute('data-index')[0] == row && inputs[j].value != ''){
+					rowValues.push(inputs[j].value)	
+				}
+			}
+			
+			for(var k = 0; k < inputs.length; k++){
+				if(inputs[k].getAttribute('data-index')[1] == col && inputs[k].value != ''){
+					colValues.push(inputs[k].value)	
+				}
+			}
+			
+			var selectdSquare = getSquare(row,col);
+			for(var r = 0; r < selectdSquare.length; r++){
+				if(selectdSquare[r].value != ''){
+					squareValue.push(selectdSquare[r].value)
+				}
+			}
+			
+			if(checkUnique(rowValues) == true && checkUnique(colValues) == true && checkUnique(squareValue == true)){
+				this.style.backgroundColor = ''	
+			}
+			else{
+				this.style.backgroundColor = 'red'
+			}
+		})
+		
+	}
 }
 highlightError()
 
-//setting the new game button
-var newGame = document.querySelector('#new');
-newGame.addEventListener('click',function(){
-	document.location.reload(true);
-})
+		
+function checkUnique(array){
+    var obj = {};
+    var count = 0;
+    for(var i = 0; i < array.length; i++){
+        for(var j = 0; j < array.length; j++){
+            if(array[i] == array[j]){
+                count++;
+                obj[array[i]] = count
+            }  
+        }
+        count = 0;
+    }
+    var bol = true;
+    for(var item in obj){
+      if(obj[item] != 1){
+          bol = false;
+          break;
+      }
+    }
+    return bol
+}
+//celebrate when game is solve
 
-
-
-
-
-
+function checkSolved(){
+	var inputs = document.querySelectorAll('input');
+	for(var i = 0; i < inputs.length; i++){
+		inputs[i].addEventListener('keyup',function(){
+			var begin ={};
+			for(var j = 0; j < inputs.length; j++){
+				if(inputs[j].disabled){
+					begin[inputs[j].getAttribute('data-index')] = inputs[j].value
+				}
+			}
+			var solve = sudoku.solve(begin);
+			var current = {};
+			for(var j = 0; j < inputs.length; j++){
+				current[inputs[j].getAttribute('data-index')] = inputs[j].value
+			}
+			var bol = true;
+			for(var item in solve){
+				if(solve[item] != current[item]){
+					bol = false;
+					break;
+				}
+			}
+			if(bol){
+				var card = document.querySelector('flip-card-back');
+//				card.innerHTML = '<h1 style="color: #3199dc">congratulation</h1><img src="images/487-4876160_entertainment-fun-tictactoe-tic-tac-toe-svg-png.png">';
+				//flip the grid
+				innercard.style.transform = 'rotateY(180deg)';
+				//pause the timer
+				stoping();
+				//disaple this button
+				pause.disabled = true;
+				//able the start button
+				start.disabled = true;
+			}
+		})
+	}
+}
+checkSolved();
