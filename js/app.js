@@ -313,7 +313,7 @@ function highlightError(){
 	//the whole inputs array
 	var inputs = document.querySelectorAll('input');
 	for(var i = 0; i < inputs.length; i++){
-		inputs[i].addEventListener('keyup',function(){
+		inputs[i].addEventListener('focus',function(){
 			var row = this.getAttribute('data-index')[0];
             var col = this.getAttribute('data-index')[1];
 			var rowValues = [];
