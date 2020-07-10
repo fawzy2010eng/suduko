@@ -398,17 +398,46 @@ function highlightErrorkeyup(){
 function getError(){
 	var values = getValues();
 	var grid = getGrid();
+	var duplicate = [];
+	var errordCells = [];
 	for(var i = 0; i < values.length; i++){
-		if(getduplicate(values[i]).length > 0){
+		duplicate = getduplicate(values[i]);
+		if(duplicate.length > 0){
 			for(var j = 0; j < values[i].length; j++){
-				if(getduplicate(values[i]).indexOf(values[i][j]) != -1){
-					grid[i][j].style.backgroundColor = 'red'
-					grid[i][j].style.color = 'yellow'
-					console.log(grid[i][j].getAttribute('data-index'))
+				if(duplicate.indexOf(values[i][j]) != -1){
+					errordCells.push(grid[i][j].getAttribute('data-index'))
+				}else{
+					grid[i][j].style.backgroundColor = ''
+					if(grid[i][j].disabled == false){
+						grid[i][j].style.color = 'black'
+					}else{
+						grid[i][j].style.color = 'red'
+					}
 				}		
 			}
 		}
+		else{
+			for(var j = 0; j < values[i].length; j++){
+				grid[i][j].style.backgroundColor = ''
+				if(grid[i][j].disabled){
+					grid[i][j].style.color = 'red'
+				}else{
+					grid[i][j].style.color = 'black'
+				}
+			}
+		}
 	}
+	var inputs = document.querySelectorAll('input');
+	for(var i = 0; i < errordCells.length; i++){
+		for(var j = 0; j < inputs.length; j++){
+			if(inputs[j].getAttribute('data-index') == errordCells[i]){
+				inputs[j].style.backgroundColor = 'red';
+				inputs[j].style.color = 'yellow'
+			}
+		}
+	}
+	
+	
 }
 function getGrid(){
 	var inputs = document.querySelectorAll('input');
@@ -499,9 +528,9 @@ function getGrid(){
 	var squareE8 = [inputs[33],inputs[34],inputs[35],inputs[42],inputs[43],inputs[44],inputs[51],inputs[52],inputs[53]];
 	var squareH2 = [inputs[54],inputs[55],inputs[56],inputs[63],inputs[64],inputs[65],inputs[72],inputs[73],inputs[74]];
 	var squareH5 = [inputs[57],inputs[58],inputs[59],inputs[66],inputs[67],inputs[68],inputs[75],inputs[76],inputs[77]];
-	var squareH8 = [inputs[60],inputs[61],inputs[62],inputs[67],inputs[68],inputs[69],inputs[78],inputs[79],inputs[70]];
+	var squareH8 = [inputs[60],inputs[61],inputs[62],inputs[69],inputs[70],inputs[71],inputs[78],inputs[79],inputs[80]];
 	
-	var bigArray = [ROWA,ROWB,ROWC,ROWD,ROWE,ROWF,ROWG,ROWH,ROWI,COL1,COL2,COL3,COL4,COL5,COL6,COL7,COL8,COL9,squareB2,squareB5,squareB8,squareE2,squareE5,squareE5,squareE8,squareH2,squareH5,squareH8]
+	var bigArray = [ROWA,ROWB,ROWC,ROWD,ROWE,ROWF,ROWG,ROWH,ROWI,COL1,COL2,COL3,COL4,COL5,COL6,COL7,COL8,COL9,squareB2,squareB5,squareB8,squareE2,squareE5,squareE8,squareH2,squareH5,squareH8]
 	
 	return bigArray;
 }
@@ -594,9 +623,9 @@ function getValues(){
 	var squareE8 = [inputs[33].value,inputs[34].value,inputs[35].value,inputs[42].value,inputs[43].value,inputs[44].value,inputs[51].value,inputs[52].value,inputs[53].value];
 	var squareH2 = [inputs[54].value,inputs[55].value,inputs[56].value,inputs[63].value,inputs[64].value,inputs[65].value,inputs[72].value,inputs[73].value,inputs[74].value];
 	var squareH5 = [inputs[57].value,inputs[58].value,inputs[59].value,inputs[66].value,inputs[67].value,inputs[68].value,inputs[75].value,inputs[76].value,inputs[77].value];
-	var squareH8 = [inputs[60].value,inputs[61].value,inputs[62].value,inputs[67].value,inputs[68].value,inputs[69].value,inputs[78].value,inputs[79].value,inputs[70].value];
+	var squareH8 = [inputs[60].value,inputs[61].value,inputs[62].value,inputs[69].value,inputs[70].value,inputs[71].value,inputs[78].value,inputs[79].value,inputs[80].value];
 	
-	var bigArray = [ROWA,ROWB,ROWC,ROWD,ROWE,ROWF,ROWG,ROWH,ROWI,COL1,COL2,COL3,COL4,COL5,COL6,COL7,COL8,COL9,squareB2,squareB5,squareB8,squareE2,squareE5,squareE5,squareE8,squareH2,squareH5,squareH8]
+	var bigArray = [ROWA,ROWB,ROWC,ROWD,ROWE,ROWF,ROWG,ROWH,ROWI,COL1,COL2,COL3,COL4,COL5,COL6,COL7,COL8,COL9,squareB2,squareB5,squareB8,squareE2,squareE5,squareE8,squareH2,squareH5,squareH8]
 	
 	return bigArray;
 }
@@ -604,10 +633,10 @@ var inputs = document.querySelectorAll('input');
 
 
 for(var i = 0; i < inputs.length; i++){
-	inputs[i].addEventListener('input',getError)
+//	inputs[i].addEventListener('input',getError)
 	inputs[i].addEventListener('keyup',getError)
 }
-//setInterval(getError,100)
+
 
 
 function getduplicate(array){
