@@ -631,11 +631,7 @@ function getValues(){
 }
 var inputs = document.querySelectorAll('input');
 
-
-for(var i = 0; i < inputs.length; i++){
-//	inputs[i].addEventListener('input',getError)
-	inputs[i].addEventListener('keyup',getError)
-}
+setInterval(getError,100)
 
 
 
